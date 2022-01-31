@@ -4,6 +4,7 @@ import {styles} from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../../../constants/Color';
+import {addComment} from '../../../Api/Application';
 
 const Add = ({route, navigation}) => {
   const {postid} = route.params;
@@ -30,26 +31,26 @@ const Add = ({route, navigation}) => {
       setEmailCheck(true);
     }
   }
-  const dataSent = data => {
-    fetch(`https://gorest.co.in/public/v1/posts/${postid}/comments`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization:
-          'Bearer 6bd4c3788f7222a8f3ba8a43d7a57528d4e45728bc3d1a3e7e70d4f94a283c4e',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(respone => {
-        respone.json();
-      })
-      .then(data => {
-        navigation.goBack();
-      })
-      .catch(error => {
-        console.log(error);
-        return error;
-      });
+  const dataSent = (postid, data) => {
+    // fetch(`https://gorest.co.in/public/v1/posts/${postid}/comments`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization:
+    //       'Bearer 6bd4c3788f7222a8f3ba8a43d7a57528d4e45728bc3d1a3e7e70d4f94a283c4e',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then(respone => {
+    //     respone.json();
+    //   })
+    //   .then(data => {
+    //     navigation.goBack();
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     return error;
+    //   });
   };
   onSubmit = () => {
     if (nametxt != '' && emailtxt != '' && bodytxt != '') {
@@ -61,7 +62,9 @@ const Add = ({route, navigation}) => {
           email: emailtxt,
           body: bodytxt,
         };
-        dataSent(data);
+        addComment(postid, data).then(res => {
+          navigation.goBack();
+        });
       } else {
         Alert.alert('Enter email correctly');
       }

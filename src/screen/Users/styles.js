@@ -4,8 +4,8 @@ import Colors from '../../constants/Color';
 export const styles = StyleSheet.create({
   view: {
     backgroundColor: Colors.white,
-    justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   },
   center: {
     flex: 1,

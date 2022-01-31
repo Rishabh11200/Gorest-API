@@ -8,14 +8,22 @@ import {
 import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
 import Colors from '../../constants/Color';
+import {getComments} from '../../Redux/actions';
+import {getComment} from '../../Api/Application';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Comment = ({route, navigation}) => {
   const {id} = route.params;
-
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const data = useSelector(state => state.comments.comment);
   const Load = () => {
-    fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`, {
+    dispatch(getComments(id));
+    // getComment(id).then(res => {
+    //   setData(res);
+    // });
+    /*fetch(`https://gorest.co.in/public/v1/posts/${id}/comments`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -31,7 +39,7 @@ const Comment = ({route, navigation}) => {
       })
       .catch(error => {
         console.log('Error: ' + error);
-      });
+      });*/
   };
   useEffect(() => {
     Load();

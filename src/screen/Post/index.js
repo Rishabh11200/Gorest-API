@@ -3,13 +3,18 @@ import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
 import Colors from '../../constants/Color';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {getPost} from '../../Api/Application';
+import {useDispatch, useSelector} from 'react-redux';
+import {getPosts} from '../../Redux/actions';
 
 const Post = ({route, navigation}) => {
   const {id} = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const data = useSelector(state => state.posts.posts);
+  const dispatch = useDispatch();
   const Load = () => {
-    fetch(`https://gorest.co.in/public/v1/users/${id}/posts`, {
+    /*  fetch(`https://gorest.co.in/public/v1/users/${id}/posts`, {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -25,10 +30,14 @@ const Post = ({route, navigation}) => {
       })
       .catch(error => {
         console.log('Error: ' + error);
-      });
+      });*/
   };
   useEffect(() => {
-    Load();
+    // Load();
+    // getPost(id).then(res => {
+    //   setData(res);
+    // });
+    dispatch(getPosts(id));
     setIsLoading(false);
   }, []);
   renderCustomItem = ({item, index}) => {
