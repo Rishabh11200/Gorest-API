@@ -34,4 +34,3 @@ export const getComments = id => dispatch => {
     dispatch(setComment(res));
   });
 };
-

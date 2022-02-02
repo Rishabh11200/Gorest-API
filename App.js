@@ -1,4 +1,5 @@
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -17,8 +18,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
+        <StatusBar
+          backgroundColor="#efdecd"
+          barStyle="dark-content"
+          animated={true}
+        />
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator
+            screenOptions={{headerStyle: {backgroundColor: 'papayawhip'}}}>
             <Stack.Screen name="Users" component={Users} />
             <Stack.Screen
               name="Post"
