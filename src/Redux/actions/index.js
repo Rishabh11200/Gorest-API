@@ -7,6 +7,11 @@ export function setUsers(users) {
     payload: users,
   };
 }
+// const egfunc = ()=>{
+//   return(dispatch) =>{
+//     dispatch()
+//   }
+// }
 export const getUser = page => dispatch => {
   getUsers(page).then(result => {
     dispatch(setUsers(result));
